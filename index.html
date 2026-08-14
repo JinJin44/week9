@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>ユーザー登録フォーム</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+    <body class="bg-gray-300">
+        <h1 class="text-3xl text-black text-center mt-6">ユーザー登録フォーム</h1>
+        <p class="text-gray-500 text-center mt-2 p-4 text-lg">アカウントを作成してサービスを利用してください</p>
+    
+        <div class="bg-white container mx-auto rounded-lg shadow-md p-6 mt-6 ">
+            <form id="signupForm" class="space-y-4" novalidate>
+                <div>
+                    <label for="Name" class="block text-black text-lg font-bold mb-2">お名前<span class="rounded-lg border border-red-500 text-red-500 text-xs font-bold ml-2">必須</span></label>
+                    <input type="text" id="Name" required class="rounded-lg border-gray-300 border w-full p-2
+                    focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="名前を入力してください..">
+                </div>
+                
+                <div>
+                    <label for="Email" class="block text-black text-lg font-bold mb-2">メールアドレス<span class="rounded-lg border border-red-500 text-red-500 text-xs font-bold ml-2">必須</span></label>
+                    <input type="email" id="Email" required class="rounded-lg border-gray-300 border w-full p-2
+                    focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="メールアドレスを入力してください..">
+                </div>
+                
+                <div>
+                    <label for="Password" class="block text-black text-lg font-bold mb-2">パスワード（8文字以上）<span class="rounded-lg border border-red-500 text-red-500 text-xs font-bold ml-2">必須</span></label>
+                    <input type="password" id="Password" required class="rounded-lg border-gray-300 border w-full p-2
+                    focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="パスワードを入力してください..">
+                </div>
+                
+                <p id="message" class="text-sm font-medium"></p>
+
+                <div class="flex items-center">
+                    <input type="checkbox" id="agree" class="mr-2 w-4 h-4">
+                    <label for="agree" class="text-lg font-bold">利用規約に同意する</label>
+                </div>
+
+                <button type="submit" class="bg-blue-600 text-white text-2xl
+                    font-bold rounded-lg w-full p-2 hover:bg-blue-700 transition duration-300">登録する</button>
+            </form>
+        </div>
+        <script>
+            const signupForm = document.getElementById('signupForm');
+            const message = document.getElementById('message');
+            
+            signupForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+            const nameInput = document.getElementById('Name').value.trim();
+            const emailInput = document.getElementById('Email').value.trim();
+            const passwordInput = document.getElementById('Password').value;
+            const agreeCheckbox = document.getElementById('agree').checked;
+            
+            if (nameInput.value === "") {   
+                message.textContent = "お名前を入力して下さい";
+                message.classList.add('text-red-500');
+                return;
+            }
+
+            if (emailInput.value === "") {   
+                message.textContent = "メールアドレスを入力して下さい";
+                message.classList.add('text-red-500');
+                return;
+            }
+
+            if (passwordInput.value === "") {   
+                message.textContent = "パスワードを入力して下さい";
+                message.classList.add('text-red-500');
+                return;
+            }
+
+            if (passwordInput.length < 8) {
+                message.textContent = "パスワードは8文字以上で入力して下さい";
+                message.classList.add('text-red-500');
+            }
+
+            if (passwordInput.length >= 12) {
+                message.textContent = "パスワードは12文字以内で入力して下さい";
+                message.classList.add('text-red-500');
+            }
+
+            if (!agreeCheckbox) {
+                agreeCheckbox.focus();
+                message.textContent = "利用規約に同意して下さい";
+                message.classList.add('text-red-500');
+                return;
+            }
+
+            //全ての条件を満たした場合、登録完了メッセージを表示
+            message.textContent = "登録完了！ようこそ、" + nameInput + " さん！";
+            message.classList.remove('text-red-500');
+            
+        });
+            
+        </script>
+    </body>
+    </html>
